@@ -15,7 +15,7 @@ from scipy.sparse import csc_matrix, identity, diags
 from scipy.sparse.linalg import spsolve
 
 # My own file
-from OpInf_utils import FDapprox
+from .OpInf_utils import FDapprox
 
 
 # Finite differences: 1st order periodic
