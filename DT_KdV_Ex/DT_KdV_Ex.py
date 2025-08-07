@@ -145,7 +145,7 @@ def main():
     # Saving operators to disk
     # Hamiltonian
     HOpInfV1FileNames = ["cVecV1.npy", "CmatV1.npy", "TtensV1.npy", "LHat.npy"]
-    HOpInfV2FileNames = ["cVecV2G.npy", "CmatV2G.npy", "TtensV2.npy"]
+    HOpInfV2FileNames = ["cVecV2.npy", "CmatV2.npy", "TtensV2.npy"]
     HOpInfV1paths = set_path_name_list(dir, "Operators/Hamiltonian", HOpInfV1FileNames)
     HOpInfV2paths = set_path_name_list(dir, "Operators/Hamiltonian", HOpInfV2FileNames)  
     for operator in zip(HOpInfV1paths, H_OpInf_ROM_ops[0]):
@@ -154,7 +154,7 @@ def main():
         np.save(*operator)
 
     HOpInfV1MCFileNames = ["cVecV1.npy", "CmatV1.npy", "TtensV1.npy", "LHat.npy"]
-    HOpInfV2MCFileNames = ["cVecV2G.npy", "CmatV2G.npy", "TtensV2.npy"]
+    HOpInfV2MCFileNames = ["cVecV2.npy", "CmatV2.npy", "TtensV2.npy"]
     HOpInfV1MCpaths = set_path_name_list(dir, "Operators/Hamiltonian/MC", HOpInfV1MCFileNames)
     HOpInfV2MCpaths = set_path_name_list(dir, "Operators/Hamiltonian/MC", HOpInfV2MCFileNames)  
     for operator in zip(HOpInfV1MCpaths, H_OpInf_ROM_ops_MC[0]):
@@ -163,7 +163,7 @@ def main():
         np.save(*operator)
 
     # Galerkin
-    GOpInfV1FileNames = ["cVecV1.npy", "CmatV1.npy", "TtensV1.npy", "LHat.npy"]
+    GOpInfV1FileNames = ["cVecV1G.npy", "CmatV1G.npy", "TtensV1G.npy"]
     GOpInfV2FileNames = ["cVecV2G.npy", "CmatV2G.npy", "TtensV2.npy"]
     GOpInfV1paths = set_path_name_list(dir, "Operators/Galerkin", GOpInfV1FileNames)
     GOpInfV2paths = set_path_name_list(dir, "Operators/Galerkin", GOpInfV2FileNames)  
@@ -172,7 +172,7 @@ def main():
     for operator in zip(GOpInfV2paths, Galerkin_ROM_ops[1]):
         np.save(*operator)
 
-    GOpInfV1MCFileNames = ["cVecV1.npy", "CmatV1.npy", "TtensV1.npy", "LHat.npy"]
+    GOpInfV1MCFileNames = ["cVecV1G.npy", "CmatV1G.npy", "TtensV1G.npy"]
     GOpInfV2MCFileNames = ["cVecV2G.npy", "CmatV2G.npy", "TtensV2.npy"]
     GOpInfV1MCpaths = set_path_name_list(dir, "Operators/Galerkin/MC", GOpInfV1MCFileNames)
     GOpInfV2MCpaths = set_path_name_list(dir, "Operators/Galerkin/MC", GOpInfV2MCFileNames)  
