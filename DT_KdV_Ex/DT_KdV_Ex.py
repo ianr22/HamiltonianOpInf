@@ -48,9 +48,10 @@ def POD_basis(A, B, E):
 
     print("SVD of snapshots calculated")
 
+    FOM_bases = [X1, X2]
     bases = [get_POD_basis(U) for U in [UU1, UU2, UU1mc, UU2mc]]
     
-    return bases
+    return FOM_bases, bases
 
 # A function to build reduced operators for hamiltonian operator inference
 def hamiltonian_reduced_operators(UList, A, B, E, ic, n=150, a=-6, p=0, v=-1, MC=False):
@@ -122,7 +123,9 @@ def main():
     print("snapshots calculated")
 
     # Reduced bases
-    bases = POD_basis(A, B, E)
+    FOM_bases, bases = POD_basis(A, B, E)
+    # Confirm solition interaction
+    # plot_trajectory(xTrain, FOM_bases[0], dx, 'fom_snapshot', 'fom_snapshot.gif')
     filenames = ["U1.npy", "U2.npy", "U1mc.npy", "U2mc.npy"]
     paths = set_path_name_list(dir, "Bases", filenames)
     print("Bases generated")

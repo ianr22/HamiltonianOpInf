@@ -71,7 +71,9 @@ def C(x, A, a=-6):
 
 # Generates initial condition for KdV soliton
 # Not general -- should probably fix this...
-def KdV_soliton_IC(x):
+def KdV_soliton_IC(x, nsol=2, interact=True):
+    if interact:
+        return nsol * (nsol + 1) * (1 / np.cosh(x))**2  # sech^2(Xg)
     return 1 / np.cosh(x / np.sqrt(2))**2
 
 
