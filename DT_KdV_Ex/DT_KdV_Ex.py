@@ -3,6 +3,7 @@
 from os import path
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.sparse import save_npz
 # UTILS
 from ..utils.KdV_BBM_utils import *
 from ..utils.OpInf_utils import *
@@ -14,7 +15,7 @@ from ..utils.DT_KdV_utils import *
 dir = path.dirname(__file__)
 
 # PARAMETERS
-N = 500
+N = 1000
 Nt = 1000
 T = 20
 # RANGES
@@ -39,6 +40,11 @@ def POD_basis(A, B, E):
 
     X1, Xd1, gH1 = integrate_KdV_v1_FOM(tTrain, ic, A, B, **KdV_params)
     X2, Xd2, gH2 = integrate_KdV_v2_FOM(tTrain, ic, A, E, **KdV_params)
+
+    np.save(f"{dir}/Operators/FOM/Xd1.npy", Xd1)
+    np.save(f"{dir}/Operators/FOM/gH1.npy", gH1)
+    np.save(f"{dir}/Operators/FOM/Xd2.npy", Xd2)
+    np.save(f"{dir}/Operators/FOM/gH2.npy", gH2)
 
     # SVD of Snapshot Matrices
     UU1mc, SS1mc = np.linalg.svd(X1-ic.reshape(-1,1))[:2]
@@ -120,17 +126,27 @@ def main():
     print("running")
     print("FOM snapshots calculating")
     A, B, E = build_KdV_mats(N, [-20,20])
+    A, B, E = build_KdV_mats(N, [-20,20])
+    print("A type:", type(A), "shape:", np.shape(A))
+    print("B type:", type(B), "shape:", np.shape(B))
+    print("E type:", type(E), "shape:", np.shape(E))
+    save_npz(f"{dir}/Bases/A.npz", A)
+    save_npz(f"{dir}/Bases/B.npz", B)
+    save_npz(f"{dir}/Bases/E.npz", E)
     print("snapshots calculated")
 
     # Reduced bases
     FOM_bases, bases = POD_basis(A, B, E)
     # Confirm solition interaction
-    # plot_trajectory(xTrain, FOM_bases[0], dx, 'fom_snapshot', 'fom_snapshot.gif')
+    plot_trajectory(xTrain, FOM_bases[0], dx, 'fom_snapshot', 'fom_snapshot.gif')
+    np.save(f"{dir}/Bases/X.npy", FOM_bases[0])
+    print("X type:", type(FOM_bases[0]))
     filenames = ["U1.npy", "U2.npy", "U1mc.npy", "U2mc.npy"]
     paths = set_path_name_list(dir, "Bases", filenames)
     print("Bases generated")
     for basis in zip(paths, bases):
         np.save(*basis)
+        print(f"Basis type: {type(basis[1])}")
 
     # Hamiltonian operators
     print("calculating Hamiltonian ROM operators")
